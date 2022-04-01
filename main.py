@@ -1,4 +1,8 @@
-# for short audio files
+##################################################################################################
+############################ for small audio files ###############################################
+##################################################################################################
+# see README for pip installations
+
 import speech_recognition as sr
 
 filename = "test.wav"
@@ -10,7 +14,11 @@ with sr.AudioFile(filename) as source:
     text = r.recognize_google(audio_data)
     print(text)
 
-# for large audio files
+##################################################################################################
+############################ for large audio files ###############################################
+##################################################################################################
+# see README for pip installations
+
 import speech_recognition as sr
 import os
 from pydub import AudioSegment
@@ -69,5 +77,19 @@ def get_large_audio_text(path):
     # return the text for all chunks detected
     return whole_text
 
+##################################################################################################
+############################ reading from a microphone ###########################################
+##################################################################################################
+# see README for pip installations
 
+with sr.Microphone() as source:
+    # read the audio data from the default microphone
+    # mic will listen for 5 seconds and convert the audio in that time
+    # use 'offset' argument to delay the start of listening
+    audio_data = r.record(source, duration=5)
+    print("Recognizing...")
 
+    # convert to text
+    # use 'language' argument to listen for other languages; "es-ES" for Spanish
+    text = r.recognize_google(audio_data)
+    print(text)
